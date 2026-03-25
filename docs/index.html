@@ -121,27 +121,38 @@
   <p class="subtitle">Assay is an open-source evidence layer for AI systems. It turns agent execution artifacts into signed proof packs that anyone can verify offline.</p>
   <p><strong>This page is a minimal demo slice of that idea.</strong> It shows one narrow claim: a real proof pack can be verified offline, and even a one-character change is detected immediately.</p>
 
+  <h2>Try it now — no clone needed</h2>
+
+  <pre>$ pip install 'assay-ai>=1.18.0'
+$ assay try</pre>
+
+  <p>This runs the full demo locally: builds a proof pack, verifies it, tampers one byte, verifies again. You'll see <span class="pass">PASS</span> then <span class="fail">FAIL</span>. Zero setup. Zero API key.</p>
+
   <h2>What this demo shows in 30 seconds</h2>
 
   <div class="step-grid">
     <div class="step">
       <div class="step-num">Step 1</div>
       <div class="step-title">Verify</div>
-      <div class="step-desc">Run <code>assay verify-pack proof_pack/</code> on a real agent evidence artifact.</div>
+      <div class="step-desc">Check a real proof pack from an AI agent call. Signature + hashes verified offline.</div>
     </div>
     <div class="step">
       <div class="step-num">Step 2</div>
       <div class="step-title">See PASS</div>
-      <div class="step-desc">Signature valid. Hashes match. Evidence intact. <span class="pass">PASS</span>.</div>
+      <div class="step-desc">Evidence intact. Signature valid. Nothing modified since signing. <span class="pass">PASS</span>.</div>
     </div>
     <div class="step">
       <div class="step-num">Step 3</div>
       <div class="step-title">Tamper &amp; FAIL</div>
-      <div class="step-desc">Change one character. Verify again. <span class="fail">FAIL</span>. Tamper caught.</div>
+      <div class="step-desc">Change one character. Verify again. <span class="fail">FAIL</span>. Tamper caught instantly.</div>
     </div>
   </div>
 
-  <pre>$ pip install 'assay-ai>=1.18.0'
+  <p>Or inspect the actual artifacts yourself:</p>
+
+  <pre>$ git clone https://github.com/Haserjian/assay-agent-demo
+$ cd assay-agent-demo
+$ pip install 'assay-ai>=1.18.0'
 
 $ assay verify-pack proof_pack/
 <span class="pass">VERIFICATION PASSED</span>
@@ -156,6 +167,35 @@ $ assay verify-pack tampered_pack/
   <p>That is the difference between <strong>logs</strong> and <strong>evidence</strong>.<br>
   Logs can be silently changed. Evidence fails visibly. No server. No vendor trust. Offline.</p>
 
+  <h2>What the evidence actually says</h2>
+
+  <p>Beyond PASS/FAIL, <code>assay explain</code> produces a plain-English interpretation of what the evidence means — and what it doesn't:</p>
+
+  <pre>$ assay explain proof_pack/
+
+WHAT HAPPENED
+  1 receipts recorded: 1 model_call
+  Providers: anthropic
+  Models: claude-sonnet-4-20250514
+  Total tokens: 110
+  Signed by: ci-assay-signer
+
+INTEGRITY CHECK
+  <span class="pass">PASSED</span>
+  All file hashes match. The Ed25519 signature is valid.
+  This evidence has not been tampered with since creation.
+
+WHAT THIS PROVES
+  The recorded evidence is authentic (signed, hash-verified).
+
+WHAT THIS DOES NOT PROVE
+  - That every action was recorded
+  - That model outputs are correct or safe
+  - That receipts were honestly created
+  - That timestamps are externally anchored</pre>
+
+  <p>The evidence states its own limits. That honesty is part of the design.</p>
+
   <h2>Why this matters</h2>
 
   <p><strong>Logs</strong> tell you what the operator says happened. You trust the system.</p>
@@ -163,7 +203,7 @@ $ assay verify-pack tampered_pack/
 
   <p>When an agent causes an incident, when a vendor claims "we logged everything," when an auditor asks "prove it" — logs are testimony. A signed, hash-chained proof pack is evidence.</p>
 
-  <p>We scanned 30 popular AI agent repos. None produced tamper-evident, independently verifiable evidence for model calls. The tooling for tracing exists. The tooling for evidence is what's been missing.</p>
+  <p>We scanned 30 popular AI agent repos. None produced tamper-evident, independently verifiable evidence for model calls. The tooling for tracing exists. The tooling for evidence is what's been missing. <em>(Scan methodology and repo list will be published separately.)</em></p>
 
   <h2>What this demo proves</h2>
   <p>A proof pack proves:</p>
@@ -185,9 +225,14 @@ $ assay verify-pack tampered_pack/
   </div>
   <p>Evidence that overclaims is worse than no evidence at all. Every proof pack states its limits explicitly.</p>
 
+  <h2>Technical notes</h2>
+  <p style="font-size: 0.9rem; color: var(--muted);">
+    The demo pack uses <strong>shadow mode</strong> (evidence collection without enforcement — the equivalent of a dry run). Assurance level is <strong>L0</strong> (basic integrity verification; higher levels add witness anchoring and claim coverage). The included <code>verify_report.json</code> is a convenience snapshot — <code>assay verify-pack</code> recomputes verification independently every time. The signer identity <code>ci-assay-signer</code> is the default local signing key, not a CI system.
+  </p>
+
   <hr class="divider">
 
-  <a class="cta" href="https://github.com/Haserjian/assay-agent-demo">Try the demo</a>
+  <a class="cta" href="https://github.com/Haserjian/assay-agent-demo">Inspect the artifacts</a>
   <a class="cta-secondary" href="https://github.com/Haserjian/assay">Assay on GitHub</a>
   <a class="cta-secondary" href="https://pypi.org/project/assay-ai/">PyPI</a>
 
@@ -195,7 +240,8 @@ $ assay verify-pack tampered_pack/
     Assay is open-source (Apache 2.0). Works with OpenAI, Anthropic, and LangChain.<br>
     Scanner, signer, and verifier are all offline-capable.<br>
     <a href="logs-vs-evidence.md">Logs vs Evidence explainer</a> ·
-    <a href="https://github.com/Haserjian/assay-agent-demo/blob/main/THESIS.md">Read the full argument</a>
+    <a href="https://github.com/Haserjian/assay-agent-demo/blob/main/THESIS.md">Read the full argument</a> ·
+    <a href="https://github.com/Haserjian/assay-agent-demo/blob/main/WHAT_THIS_PROVES.md">What this proves</a>
   </p>
 
 </body>
