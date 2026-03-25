@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Assay — Logs are not evidence</title>
+  <title>Assay — Tamper-evident evidence for AI agent runs</title>
   <meta name="description" content="Tamper-evident proof packs for AI agent runs. Verify offline. Detect tampering instantly.">
   <style>
     :root {
@@ -117,10 +117,11 @@
 </head>
 <body>
 
-  <h1>Logs are not evidence.</h1>
-  <p class="subtitle">Assay produces tamper-evident proof packs for AI agent runs.<br>Verify offline. Detect tampering instantly.</p>
+  <h1>Tamper-evident evidence for AI agent runs.</h1>
+  <p class="subtitle">Assay is an open-source evidence layer for AI systems. It turns agent execution artifacts into signed proof packs that anyone can verify offline.</p>
+  <p><strong>This page is a minimal demo slice of that idea.</strong> It shows one narrow claim: a real proof pack can be verified offline, and even a one-character change is detected immediately.</p>
 
-  <h2>The proof in 30 seconds</h2>
+  <h2>What this demo shows in 30 seconds</h2>
 
   <div class="step-grid">
     <div class="step">
@@ -152,8 +153,8 @@ $ assay verify-pack tampered_pack/
 <span class="fail">VERIFICATION FAILED</span>
   E_MANIFEST_TAMPER: Hash mismatch for receipt_pack.jsonl</pre>
 
-  <p>Logs can be silently changed. Evidence fails visibly.<br>
-  No server. No vendor trust. Offline.</p>
+  <p>That is the difference between <strong>logs</strong> and <strong>evidence</strong>.<br>
+  Logs can be silently changed. Evidence fails visibly. No server. No vendor trust. Offline.</p>
 
   <h2>Why this matters</h2>
 
@@ -164,7 +165,7 @@ $ assay verify-pack tampered_pack/
 
   <p>We scanned 30 popular AI agent repos. None produced tamper-evident, independently verifiable evidence for model calls. The tooling for tracing exists. The tooling for evidence is what's been missing.</p>
 
-  <h2>What this proves</h2>
+  <h2>What this demo proves</h2>
   <p>A proof pack proves:</p>
   <ul style="margin-bottom: 1rem;">
     <li>These API calls happened (receipts are hash-chained)</li>
@@ -172,7 +173,7 @@ $ assay verify-pack tampered_pack/
     <li>Anyone can verify it offline (no vendor server, no API key)</li>
   </ul>
 
-  <h2>What this does not prove</h2>
+  <h2>What this demo does not prove</h2>
   <div class="limits">
     <ul>
       <li>Not model correctness or safety</li>
