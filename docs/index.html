@@ -128,7 +128,21 @@ $ assay try</pre>
 
   <p>This runs the full demo locally: builds a proof pack, verifies it, tampers one byte, verifies again. You'll see <span class="pass">PASS</span> then <span class="fail">FAIL</span>. Zero setup. Zero API key.</p>
 
-  <h2>What this demo shows in 30 seconds</h2>
+  <h2>Inspect the actual artifacts</h2>
+
+  <pre>$ git clone https://github.com/Haserjian/assay-agent-demo
+$ cd assay-agent-demo
+$ pip install 'assay-ai>=1.18.0'
+
+$ assay verify-pack proof_pack/
+<span class="pass">VERIFICATION PASSED</span>
+  Integrity:  PASS
+  Receipts:   1
+  Errors:     0
+
+$ assay verify-pack tampered_pack/
+<span class="fail">VERIFICATION FAILED</span>
+  E_MANIFEST_TAMPER: Hash mismatch for receipt_pack.jsonl</pre>
 
   <div class="step-grid">
     <div class="step">
@@ -147,22 +161,6 @@ $ assay try</pre>
       <div class="step-desc">Change one character. Verify again. <span class="fail">FAIL</span>. Tamper caught instantly.</div>
     </div>
   </div>
-
-  <p>Or inspect the actual artifacts yourself:</p>
-
-  <pre>$ git clone https://github.com/Haserjian/assay-agent-demo
-$ cd assay-agent-demo
-$ pip install 'assay-ai>=1.18.0'
-
-$ assay verify-pack proof_pack/
-<span class="pass">VERIFICATION PASSED</span>
-  Integrity:  PASS
-  Receipts:   1
-  Errors:     0
-
-$ assay verify-pack tampered_pack/
-<span class="fail">VERIFICATION FAILED</span>
-  E_MANIFEST_TAMPER: Hash mismatch for receipt_pack.jsonl</pre>
 
   <p>That is the difference between <strong>logs</strong> and <strong>evidence</strong>.<br>
   Logs can be silently changed. Evidence fails visibly. No server. No vendor trust. Offline.</p>
@@ -203,7 +201,7 @@ WHAT THIS DOES NOT PROVE
 
   <p>When an agent causes an incident, when a vendor claims "we logged everything," when an auditor asks "prove it" — logs are testimony. A signed, hash-chained proof pack is evidence.</p>
 
-  <p>We scanned 30 popular AI agent repos. None produced tamper-evident, independently verifiable evidence for model calls. The tooling for tracing exists. The tooling for evidence is what's been missing. <em>(Scan methodology and repo list will be published separately.)</em></p>
+  <p>We scanned 30 popular AI agent repos. None produced tamper-evident, independently verifiable evidence for model calls. The tooling for tracing exists. The tooling for evidence is what's been missing. <a href="https://github.com/Haserjian/assay/blob/main/scripts/scan_study/results/report.md" style="font-size: 0.9em;">(Full methodology, limits, and repo list.)</a></p>
 
   <h2>What this demo proves</h2>
   <p>A proof pack proves:</p>
@@ -239,7 +237,7 @@ WHAT THIS DOES NOT PROVE
   <p class="footer">
     Assay is open-source (Apache 2.0). Works with OpenAI, Anthropic, and LangChain.<br>
     Scanner, signer, and verifier are all offline-capable.<br>
-    <a href="logs-vs-evidence.md">Logs vs Evidence explainer</a> ·
+    <a href="https://github.com/Haserjian/assay-agent-demo/blob/main/docs/logs-vs-evidence.md">Logs vs Evidence explainer</a> ·
     <a href="https://github.com/Haserjian/assay-agent-demo/blob/main/THESIS.md">Read the full argument</a> ·
     <a href="https://github.com/Haserjian/assay-agent-demo/blob/main/WHAT_THIS_PROVES.md">What this proves</a>
   </p>

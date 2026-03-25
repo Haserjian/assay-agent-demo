@@ -57,6 +57,7 @@ We scanned 30 popular AI agent repos. None produced tamper-evident,
 independently verifiable evidence for model calls. Modern agent stacks
 often have logs, traces, and telemetry — useful observability, but not
 the same thing as evidence another party can verify offline.
+([Full methodology, limits, and repo list.](https://github.com/Haserjian/assay/blob/main/scripts/scan_study/results/report.md))
 
 ## Learn more
 
