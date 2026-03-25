@@ -117,9 +117,10 @@
 </head>
 <body>
 
+  <p style="font-size: 0.85rem; color: var(--muted); margin-bottom: 1.5rem;"><a href="https://haserjian.github.io/assay/">Assay</a> is the evidence layer. This page is a small agent-based demo of Assay in action. <a href="https://haserjian.github.io/assay/">What Assay is &rarr;</a> &middot; <a href="https://haserjian.github.io/assay-proof-gallery/verify.html">Verify proof packs in browser &rarr;</a></p>
+
   <h1>Tamper-evident evidence for AI agent runs.</h1>
-  <p class="subtitle">Assay is an open-source evidence layer for AI systems. It turns agent execution artifacts into signed proof packs that anyone can verify offline.</p>
-  <p><strong>This page is a minimal demo slice of that idea.</strong> It shows one narrow claim: a real proof pack can be verified offline, and even a one-character change is detected immediately.</p>
+  <p class="subtitle">This is a minimal demo of <a href="https://haserjian.github.io/assay/" style="color: var(--accent);">Assay</a> implemented in an agent workflow. It shows one narrow claim: a real proof pack can be verified offline, and even a one-character change is detected immediately.</p>
 
   <h2>Try it now — no clone needed</h2>
 
@@ -228,6 +229,23 @@ WHAT THIS DOES NOT PROVE
     The demo pack uses <strong>shadow mode</strong> (evidence collection without enforcement — the equivalent of a dry run). Assurance level is <strong>L0</strong> (basic integrity verification; higher levels add witness anchoring and claim coverage). The included <code>verify_report.json</code> is a convenience snapshot — <code>assay verify-pack</code> recomputes verification independently every time. The signer identity <code>ci-assay-signer</code> is the default local signing key, not a CI system.
   </p>
 
+  <h2>Go deeper</h2>
+
+  <div class="step-grid">
+    <div class="step">
+      <div class="step-title"><a href="https://haserjian.github.io/assay/">What Assay is</a></div>
+      <div class="step-desc">The full product story: how it works, what it catches, threat model, regulatory context.</div>
+    </div>
+    <div class="step">
+      <div class="step-title"><a href="https://haserjian.github.io/assay-proof-gallery/verify.html">Verify in browser</a></div>
+      <div class="step-desc">Upload a proof pack and verify it client-side. Nothing leaves your machine.</div>
+    </div>
+    <div class="step">
+      <div class="step-title"><a href="https://haserjian.github.io/assay/evidence-readiness.html">For buyers / compliance</a></div>
+      <div class="step-desc">What enterprise buyers can actually verify about an AI product.</div>
+    </div>
+  </div>
+
   <hr class="divider">
 
   <a class="cta" href="https://github.com/Haserjian/assay-agent-demo">Inspect the artifacts</a>
@@ -237,8 +255,8 @@ WHAT THIS DOES NOT PROVE
   <p class="footer">
     Assay is open-source (Apache 2.0). Works with OpenAI, Anthropic, and LangChain.<br>
     Scanner, signer, and verifier are all offline-capable.<br>
-    <a href="https://github.com/Haserjian/assay-agent-demo/blob/main/docs/logs-vs-evidence.md">Logs vs Evidence explainer</a> ·
-    <a href="https://github.com/Haserjian/assay-agent-demo/blob/main/THESIS.md">Read the full argument</a> ·
+    <a href="https://github.com/Haserjian/assay-agent-demo/blob/main/docs/logs-vs-evidence.md">Logs vs Evidence explainer</a> &middot;
+    <a href="https://github.com/Haserjian/assay-agent-demo/blob/main/THESIS.md">Read the full argument</a> &middot;
     <a href="https://github.com/Haserjian/assay-agent-demo/blob/main/WHAT_THIS_PROVES.md">What this proves</a>
   </p>
 
