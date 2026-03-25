@@ -20,7 +20,7 @@ An AI agent made one call to `claude-sonnet-4-20250514`, asking it to explain th
 ## How to verify
 
 ```
-pip install assay-ai
+pip install 'assay-ai>=1.18.0'
 assay verify-pack proof_pack/
 ```
 

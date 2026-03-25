@@ -39,7 +39,7 @@ Today, most agent stacks can tell you what they logged. Very few can prove what 
 Here's what happens when you run a real AI agent call through Assay:
 
 ```
-pip install assay-ai
+pip install 'assay-ai>=1.18.0'
 assay verify-pack proof_pack/
 # → PASS. Evidence intact. Signature valid.
 ```
@@ -72,4 +72,4 @@ No API key needed. The repo contains a pre-generated proof pack you can verify r
 
 *Assay is open-source (Apache 2.0) and available on [PyPI](https://pypi.org/project/assay-ai/). It works with OpenAI, Anthropic, and LangChain. The scanner, signer, and verifier are all offline-capable.*
 
-*Next: I'm measuring how common this evidence gap is across a broader set of AI agent repos. Results coming soon.*
+*Read the full [Logs vs Evidence](docs/logs-vs-evidence.md) breakdown for the detailed comparison.*

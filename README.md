@@ -45,20 +45,18 @@ assay try
 
 This runs Assay's built-in demo: build a pack, verify it, tamper with one byte, verify again.
 
-## How common is this evidence gap?
+## Read more
+
+- **[Logs vs Evidence →](docs/logs-vs-evidence.md)** — the core distinction in detail
+- **[Your AI Agent Has Logs. It Doesn't Have Evidence. →](THESIS.md)** — the full argument
+- **[What this proves and what it doesn't →](WHAT_THIS_PROVES.md)** — explicit limits
+
+## The evidence gap
 
 We scanned 30 popular AI agent repos. None produced tamper-evident,
 independently verifiable evidence for model calls. Modern agent stacks
 often have logs, traces, and telemetry — useful observability, but not
 the same thing as evidence another party can verify offline.
-
-*Detailed ecosystem scan coming soon.*
-
----
-
-## Read the argument
-
-**[Your AI Agent Has Logs. It Doesn't Have Evidence. →](THESIS.md)**
 
 ## Learn more
 

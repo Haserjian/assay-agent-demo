@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Assay — Logs are not evidence</title>
+  <meta name="description" content="Tamper-evident proof packs for AI agent runs. Verify offline. Detect tampering instantly.">
+  <style>
+    :root {
+      --bg: #0d1117;
+      --surface: #161b22;
+      --border: #30363d;
+      --text: #e6edf3;
+      --muted: #8b949e;
+      --accent: #58a6ff;
+      --green: #3fb950;
+      --red: #f85149;
+      --mono: 'SF Mono', 'Cascadia Code', 'Fira Code', Consolas, monospace;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 4rem;
+    }
+    h1 { font-size: 2rem; margin-bottom: 0.25rem; letter-spacing: -0.02em; }
+    h2 { font-size: 1.25rem; margin-top: 2.5rem; margin-bottom: 0.75rem; color: var(--muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.85rem; }
+    p { margin-bottom: 1rem; }
+    .subtitle { color: var(--muted); font-size: 1.1rem; margin-bottom: 2rem; }
+    code {
+      font-family: var(--mono);
+      background: var(--surface);
+      padding: 0.15em 0.4em;
+      border-radius: 4px;
+      font-size: 0.9em;
+    }
+    pre {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      overflow-x: auto;
+      font-family: var(--mono);
+      font-size: 0.85rem;
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+    }
+    .pass { color: var(--green); font-weight: 600; }
+    .fail { color: var(--red); font-weight: 600; }
+    .step-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 1rem;
+      margin: 1rem 0 2rem;
+    }
+    .step {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.25rem 1rem;
+    }
+    .step-num {
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.5rem;
+    }
+    .step-title { font-weight: 600; margin-bottom: 0.25rem; }
+    .step-desc { font-size: 0.85rem; color: var(--muted); }
+    .limits {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.25rem;
+      margin: 1rem 0;
+    }
+    .limits ul { list-style: none; padding: 0; }
+    .limits li { padding: 0.25rem 0; color: var(--muted); font-size: 0.9rem; }
+    .limits li::before { content: "- "; }
+    .cta {
+      display: inline-block;
+      background: var(--accent);
+      color: var(--bg);
+      padding: 0.6rem 1.5rem;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
+      margin-top: 0.5rem;
+      margin-right: 0.75rem;
+    }
+    .cta:hover { opacity: 0.9; }
+    .cta-secondary {
+      display: inline-block;
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.6rem 1.5rem;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 500;
+      margin-top: 0.5rem;
+    }
+    .cta-secondary:hover { border-color: var(--muted); }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .divider { border: none; border-top: 1px solid var(--border); margin: 2.5rem 0; }
+    .footer { color: var(--muted); font-size: 0.85rem; margin-top: 2rem; }
+    @media (max-width: 600px) {
+      .step-grid { grid-template-columns: 1fr; }
+      h1 { font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Logs are not evidence.</h1>
+  <p class="subtitle">Assay produces tamper-evident proof packs for AI agent runs.<br>Verify offline. Detect tampering instantly.</p>
+
+  <h2>The proof in 30 seconds</h2>
+
+  <div class="step-grid">
+    <div class="step">
+      <div class="step-num">Step 1</div>
+      <div class="step-title">Verify</div>
+      <div class="step-desc">Run <code>assay verify-pack proof_pack/</code> on a real agent evidence artifact.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">Step 2</div>
+      <div class="step-title">See PASS</div>
+      <div class="step-desc">Signature valid. Hashes match. Evidence intact. <span class="pass">PASS</span>.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">Step 3</div>
+      <div class="step-title">Tamper &amp; FAIL</div>
+      <div class="step-desc">Change one character. Verify again. <span class="fail">FAIL</span>. Tamper caught.</div>
+    </div>
+  </div>
+
+  <pre>$ pip install 'assay-ai>=1.18.0'
+
+$ assay verify-pack proof_pack/
+<span class="pass">VERIFICATION PASSED</span>
+  Integrity:  PASS
+  Receipts:   1
+  Errors:     0
+
+$ assay verify-pack tampered_pack/
+<span class="fail">VERIFICATION FAILED</span>
+  E_MANIFEST_TAMPER: Hash mismatch for receipt_pack.jsonl</pre>
+
+  <p>Logs can be silently changed. Evidence fails visibly.<br>
+  No server. No vendor trust. Offline.</p>
+
+  <h2>Why this matters</h2>
+
+  <p><strong>Logs</strong> tell you what the operator says happened. You trust the system.</p>
+  <p><strong>Evidence</strong> lets another party verify what happened. Independently. Offline. Without trusting anyone.</p>
+
+  <p>When an agent causes an incident, when a vendor claims "we logged everything," when an auditor asks "prove it" — logs are testimony. A signed, hash-chained proof pack is evidence.</p>
+
+  <p>We scanned 30 popular AI agent repos. None produced tamper-evident, independently verifiable evidence for model calls. The tooling for tracing exists. The tooling for evidence is what's been missing.</p>
+
+  <h2>What this proves</h2>
+  <p>A proof pack proves:</p>
+  <ul style="margin-bottom: 1rem;">
+    <li>These API calls happened (receipts are hash-chained)</li>
+    <li>The evidence has not been modified since signing (Ed25519 signature valid)</li>
+    <li>Anyone can verify it offline (no vendor server, no API key)</li>
+  </ul>
+
+  <h2>What this does not prove</h2>
+  <div class="limits">
+    <ul>
+      <li>Not model correctness or safety</li>
+      <li>Not that every action was recorded (only instrumented calls appear)</li>
+      <li>Not source honesty (tamper-evidence is not the same as source attestation)</li>
+      <li>Not externally anchored timestamps (local clock unless witnessed)</li>
+      <li>Not regulatory compliance (supports review, not certification)</li>
+    </ul>
+  </div>
+  <p>Evidence that overclaims is worse than no evidence at all. Every proof pack states its limits explicitly.</p>
+
+  <hr class="divider">
+
+  <a class="cta" href="https://github.com/Haserjian/assay-agent-demo">Try the demo</a>
+  <a class="cta-secondary" href="https://github.com/Haserjian/assay">Assay on GitHub</a>
+  <a class="cta-secondary" href="https://pypi.org/project/assay-ai/">PyPI</a>
+
+  <p class="footer">
+    Assay is open-source (Apache 2.0). Works with OpenAI, Anthropic, and LangChain.<br>
+    Scanner, signer, and verifier are all offline-capable.<br>
+    <a href="logs-vs-evidence.md">Logs vs Evidence explainer</a> ·
+    <a href="https://github.com/Haserjian/assay-agent-demo/blob/main/THESIS.md">Read the full argument</a>
+  </p>
+
+</body>
+</html>
