@@ -62,5 +62,5 @@ the same thing as evidence another party can verify offline.
 ## Learn more
 
 - [Assay on GitHub](https://github.com/Haserjian/assay)
-- [Assay on PyPI](https://pypi.org/project/assay-ai/) (v1.18.0, Apache 2.0)
+- [Assay on PyPI](https://pypi.org/project/assay-ai/) (Apache 2.0)
 - Works with OpenAI, Anthropic, and LangChain
