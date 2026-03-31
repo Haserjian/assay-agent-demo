@@ -1,0 +1,11 @@
+{
+  "pack_id": "pack_20260331T003634_8cf4105f",
+  "run_id": "trace_20260331T003626_d72d69ae",
+  "passed": true,
+  "errors": [],
+  "warnings": [],
+  "receipt_count": 2,
+  "head_hash": "a6c88723fc3a940d57130c6f461d5b61f511ea882c3969865f0559a1fdfbb5d9",
+  "verified_at": "2026-03-31T00:36:34.829628+00:00",
+  "verifier_version": "1.19.0"
+}

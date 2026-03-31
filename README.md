@@ -45,6 +45,28 @@ assay try
 
 This runs Assay's built-in demo: build a pack, verify it, tamper with one byte, verify again.
 
+## LangChain agent with tool use
+
+Real-world agents don't make a single LLM call — they plan, call tools, and synthesize.
+The `langchain/` scenario shows what that looks like when it's evidenced, not just logged:
+a three-step temperature-conversion agent (plan → tool → synthesize), with a signed receipt
+for every LLM call.
+
+```
+cd langchain
+pip install -r requirements.txt
+export ANTHROPIC_API_KEY=sk-ant-...
+assay run -- python agent.py
+assay verify-pack proof_pack_*/
+```
+
+A committed proof pack is included at `langchain/proof_pack/`.
+Verify it with no API key: `assay verify-pack langchain/proof_pack/`
+
+**[What the LangChain pack proves →](langchain/WHAT_THIS_PROVES.md)**
+
+---
+
 ## Read more
 
 - **[Logs vs Evidence →](docs/logs-vs-evidence.md)** — the core distinction in detail
