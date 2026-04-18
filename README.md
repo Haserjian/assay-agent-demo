@@ -23,7 +23,15 @@ Result: **FAIL**. Hash mismatch detected. Tamper caught.
 That's the difference between logs and evidence.
 Logs can be silently changed. Evidence fails visibly.
 
+This is the specimen you hand to a skeptical reviewer:
+
+- a buyer doing vendor diligence
+- an assessor checking a technical packet
+- an audit team asking what actually happened
+
 **[What this proves and what it doesn't →](WHAT_THIS_PROVES.md)**
+**[Hiring AI assessor packet →](HIRING_AI_ASSESSOR_PACKET.md)**
+**[Demo policy reference →](DEMO_POLICY_REFERENCE.md)**
 
 ---
 
@@ -72,6 +80,9 @@ Verify it with no API key: `assay verify-pack langchain/proof_pack/`
 - **[Logs vs Evidence →](docs/logs-vs-evidence.md)** — the core distinction in detail
 - **[Your AI Agent Has Logs. It Doesn't Have Evidence. →](THESIS.md)** — the full argument
 - **[What this proves and what it doesn't →](WHAT_THIS_PROVES.md)** — explicit limits
+- **[Hiring AI assessor packet →](HIRING_AI_ASSESSOR_PACKET.md)** — one-page reviewer handoff for hiring-AI evidence discussions
+- **[Demo policy reference →](DEMO_POLICY_REFERENCE.md)** — how the specimen packet's pinned policy hash resolves
+- **[Article 11 / Annex IV working map →](https://github.com/Haserjian/assay-protocol/blob/main/ARTICLE11_ANNEXIV_MAPPING.md)** — where a proof pack helps in a compliance packet and where it does not
 
 ## The evidence gap
 

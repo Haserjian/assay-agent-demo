@@ -9,6 +9,7 @@ An AI agent made one call to `claude-sonnet-4-20250514`, asking it to explain th
 - **This API call happened.** The receipt records the model, token count, latency, and callsite.
 - **The evidence has not been modified since creation.** The Ed25519 signature is valid. The hash chain is intact.
 - **The pack was created by a specific signer** at a specific time.
+- **The pack can support a wider audit or compliance packet** because another party can verify it offline.
 
 ## What is NOT proven
 
@@ -16,6 +17,7 @@ An AI agent made one call to `claude-sonnet-4-20250514`, asking it to explain th
 - That every action was recorded (only instrumented calls appear)
 - That the receipts were honestly created (tamper-evidence is not source honesty)
 - That timestamps are externally anchored (local clock was used)
+- That this pack alone satisfies Article 11 / Annex IV or any other full regulatory documentation requirement
 
 ## How to verify
 
