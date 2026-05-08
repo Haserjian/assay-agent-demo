@@ -1,0 +1,42 @@
+name: OAE Demo Verification
+
+on:
+  push:
+    branches: ["main", "feat/**"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install test runner
+        run: python -m pip install pytest
+
+      - name: Compile sources
+        run: python -m compileall assay_agent_demo src tests examples
+
+      - name: Run tests
+        run: python -m pytest -q
+
+      - name: Replay support triage examples
+        run: |
+          python examples/support_triage_demo.py
+          python examples/replay_support_triage.py
+
+      - name: Exercise OAE support triage CLI
+        run: |
+          python -m assay_agent_demo.cli list-scenarios
+          python -m assay_agent_demo.cli run --scenario happy_but_bounded
+          python -m assay_agent_demo.cli run --scenario overclaim_rejected
+          python -m assay_agent_demo.cli run --scenario adversarial_interface
+          python -m assay_agent_demo.cli run --scenario evidence_arrives_later
+          python -m assay_agent_demo.cli replay --scenario happy_but_bounded --format json
