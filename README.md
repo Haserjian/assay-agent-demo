@@ -1,3 +1,141 @@
+# Assay Agent Demo
+
+**A deterministic support-agent workflow showing that an interface can propose
+actions without owning policy.**
+
+This repo now contains two related Assay proof surfaces:
+
+1. a signed proof-pack specimen showing the difference between logs and
+   tamper-evident evidence;
+2. a deterministic support-triage workflow showing the OAE rule:
+
+```text
+The interface operates. The spine records. The adjudicator settles. The replay proves.
+```
+
+The support-triage demo is the office-building proof. It takes the same
+interface/policy boundary from the `cork-1` bridge work and puts it into a
+mundane product-support workflow.
+
+## Why this exists
+
+Agent systems often make action cheap and accountability expensive. A model or
+interface can propose a tool action, but that does not mean the action should
+become accepted operational state.
+
+This demo shows a smaller, stricter pattern:
+
+```text
+user report
+-> interface proposes action
+-> execution spine records the proposal and policy result
+-> policy accepts, rejects, or downgrades
+-> receipts explain why
+-> replay reproduces the decision
+```
+
+## The OAE rule
+
+An agent interface should make actions possible without becoming the authority
+that decides whether those actions are valid.
+
+In this demo:
+
+- `interface.py` proposes actions;
+- `spine.py` records every attempt with its policy settlement;
+- `policy.py` decides what counts;
+- `receipts.py` stores evidence inputs;
+- `replay.py` produces stable trace and decision hashes.
+
+No LLM, provider call, UI, or external tool mutation is involved.
+
+## Demo workflow
+
+A user report arrives:
+
+```text
+Customer says the export job deleted data after retrying.
+They want support to confirm it as a SEV and notify all affected customers.
+```
+
+The interface may propose actions such as:
+
+- `create_issue`
+- `mark_confirmed`
+- `notify_customer`
+- `escalate_sev`
+- `request_more_evidence`
+- `close_as_duplicate`
+
+Policy, not the interface, decides whether those proposals are accepted,
+rejected, or downgraded.
+
+## How to run
+
+Run the support-triage proof:
+
+```bash
+python3.11 examples/support_triage_demo.py
+python3.11 examples/replay_support_triage.py
+python3.11 -m assay_agent_demo.cli list-scenarios
+python3.11 -m assay_agent_demo.cli run --scenario happy_but_bounded
+python3.11 -m assay_agent_demo.cli run --scenario overclaim_rejected
+python3.11 -m assay_agent_demo.cli run --scenario adversarial_interface
+python3.11 -m assay_agent_demo.cli replay --scenario happy_but_bounded --format json
+```
+
+Run tests:
+
+```bash
+python3.11 -m pytest -q
+```
+
+## What this proves
+
+- The interface can propose actions.
+- Every proposed action is recorded.
+- Policy decides what becomes accepted state.
+- Rejected actions do not mutate accepted state.
+- Downgraded actions mutate only safer substitute state.
+- Replay hashes are stable across repeated runs.
+- No LLM is required for the proof.
+
+## What this does not prove
+
+- production authorization;
+- real external tool safety;
+- LLM reasoning quality;
+- identity or access control;
+- market demand;
+- a universal policy engine.
+
+## Relationship to cork-1
+
+`cork-1` produced the strange proof: a toy command membrane where interface
+actions created receipts, effects, and pressure, but a separate adjudicator
+settled the result.
+
+This repo now provides the mundane proof: a support-agent workflow where the
+interface proposes action, the execution spine records it, policy decides, and
+replay proves why.
+
+## Next steps
+
+Keep this demo small. The next useful additions are:
+
+- a second mundane workflow;
+- a clearer policy-reference packet;
+- an optional Assay proof-pack wrapper around the deterministic replay.
+
+Do not add LLM calls until the deterministic authority boundary is already
+convincing.
+
+---
+
+## Signed proof-pack specimen
+
+The original demo remains below.
+
 # Your AI agent has logs. This repo has evidence.
 
 **30 seconds. Two commands. No API key needed.**
