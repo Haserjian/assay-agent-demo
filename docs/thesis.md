@@ -46,7 +46,7 @@ This demo separates the layers:
 - the interface proposes;
 - the spine records every attempt;
 - policy accepts, rejects, or downgrades;
-- receipts explain why;
+- policy reasons and receipts explain why;
 - replay reproduces the decision.
 
 The result is not a full production authorization system. It is a small,

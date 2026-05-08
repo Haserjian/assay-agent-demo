@@ -30,7 +30,7 @@ user report
 -> interface proposes action
 -> execution spine records the proposal and policy result
 -> policy accepts, rejects, or downgrades
--> receipts explain why
+-> policy reasons and receipts explain why
 -> replay reproduces the decision
 ```
 
@@ -81,6 +81,7 @@ python3.11 -m assay_agent_demo.cli list-scenarios
 python3.11 -m assay_agent_demo.cli run --scenario happy_but_bounded
 python3.11 -m assay_agent_demo.cli run --scenario overclaim_rejected
 python3.11 -m assay_agent_demo.cli run --scenario adversarial_interface
+python3.11 -m assay_agent_demo.cli run --scenario evidence_arrives_later
 python3.11 -m assay_agent_demo.cli replay --scenario happy_but_bounded --format json
 ```
 
