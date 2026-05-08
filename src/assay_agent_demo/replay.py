@@ -11,12 +11,14 @@ from .receipts import freeze_data, stable_hash
 from .spine import ExecutionSpine
 
 
-BOUNDARY_FLAGS = {
-    "interface_authority": "absent",
-    "policy_owner": POLICY_OWNER,
-    "llm": "absent",
-    "external_mutation": "absent",
-}
+BOUNDARY_FLAGS = freeze_data(
+    {
+        "interface_authority": "absent",
+        "policy_owner": POLICY_OWNER,
+        "llm": "absent",
+        "external_mutation": "absent",
+    }
+)
 
 
 @dataclass(frozen=True)
@@ -25,12 +27,14 @@ class ReplayTrace:
     scenario_id: str
     events: tuple[Any, ...]
     accepted_state: Any
+    receipt_hashes: tuple[Any, ...]
     boundary_flags: Mapping[str, str]
     decision_hash: str
     trace_hash: str
 
     def __post_init__(self) -> None:
         object.__setattr__(self, "events", tuple(self.events))
+        object.__setattr__(self, "receipt_hashes", freeze_data(self.receipt_hashes))
         object.__setattr__(self, "boundary_flags", freeze_data(self.boundary_flags))
 
     def to_json(self) -> dict[str, Any]:
@@ -39,6 +43,7 @@ class ReplayTrace:
             "scenario_id": self.scenario_id,
             "events": self.events,
             "accepted_state": self.accepted_state,
+            "receipt_hashes": self.receipt_hashes,
             "boundary_flags": self.boundary_flags,
             "decision_hash": self.decision_hash,
             "trace_hash": self.trace_hash,
@@ -85,6 +90,7 @@ def build_trace(
     scenario: ScenarioDefinition,
     spine: ExecutionSpine,
 ) -> ReplayTrace:
+    receipt_hashes = _receipt_commitments(scenario.receipts)
     decision_data = {
         "scenario_id": scenario.scenario_id,
         "accepted_state": spine.accepted_state,
@@ -94,6 +100,7 @@ def build_trace(
                 "action_type": event.proposed_action.to_json()["action_type"],
                 "outcome": event.policy_result,
                 "reason": event.reason,
+                "used_receipt_ids": event.decision.used_receipt_ids,
                 "world_delta": event.world_delta,
             }
             for event in spine.events
@@ -104,6 +111,7 @@ def build_trace(
         "scenario_id": scenario.scenario_id,
         "report": scenario.report,
         "receipt_ids": tuple(item.receipt_id for item in scenario.receipts),
+        "receipt_hashes": receipt_hashes,
         "events": spine.events,
         "accepted_state": spine.accepted_state,
         "boundary_flags": BOUNDARY_FLAGS,
@@ -115,9 +123,20 @@ def build_trace(
         scenario_id=scenario.scenario_id,
         events=spine.events,
         accepted_state=spine.accepted_state,
+        receipt_hashes=receipt_hashes,
         boundary_flags=dict(BOUNDARY_FLAGS),
         decision_hash=decision_hash,
         trace_hash=trace_hash,
+    )
+
+
+def _receipt_commitments(receipts: tuple[Any, ...]) -> tuple[dict[str, str], ...]:
+    return tuple(
+        {
+            "receipt_id": receipt.receipt_id,
+            "receipt_hash": stable_hash(receipt),
+        }
+        for receipt in sorted(receipts, key=lambda item: item.receipt_id)
     )
 
 

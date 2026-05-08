@@ -11,6 +11,7 @@ def render_json(result: AdjudicationResult) -> str:
 
 
 def render_human(result: AdjudicationResult) -> str:
+    flags = result.trace.boundary_flags
     lines = [
         "ASSAY AGENT DEMO // support triage",
         "",
@@ -57,10 +58,10 @@ def render_human(result: AdjudicationResult) -> str:
             "Replay:",
             f"  Replay hash: {result.trace_hash}",
             f"  decision_hash: {result.decision_hash}",
-            "  interface_authority: absent",
-            "  policy_owner: demo_policy_v0",
-            "  llm: absent",
-            "  external_mutation: absent",
+            f"  interface_authority: {flags['interface_authority']}",
+            f"  policy_owner: {flags['policy_owner']}",
+            f"  llm: {flags['llm']}",
+            f"  external_mutation: {flags['external_mutation']}",
         ]
     )
     return "\n".join(lines)

@@ -5,6 +5,8 @@ from pathlib import Path
 from assay_agent_demo.render import render_human
 from assay_agent_demo.scenarios import list_scenarios, run_scenario
 
+_ROOT = Path(__file__).resolve().parents[1]
+
 
 def test_happy_scenario_produces_expected_sequence() -> None:
     result = run_scenario("happy_but_bounded")
@@ -37,17 +39,20 @@ def test_all_required_scenarios_exist() -> None:
 
 
 def test_human_transcript_contains_policy_and_replay_language() -> None:
-    rendered = render_human(run_scenario("overclaim_rejected"))
+    result = run_scenario("overclaim_rejected")
+    rendered = render_human(result)
 
     assert "The interface proposed" in rendered
     assert "Policy accepted" in rendered
     assert "Policy rejected" in rendered
     assert "Replay hash" in rendered
     assert "receipts: missing_repro_receipt, policy_rule_receipt" in rendered
+    for key, value in result.trace.boundary_flags.items():
+        assert f"{key}: {value}" in rendered
 
 
 def test_public_transcript_hashes_match_current_scenarios() -> None:
-    transcript = Path("docs/demo-transcript.md").read_text(encoding="utf-8")
+    transcript = (_ROOT / "docs" / "demo-transcript.md").read_text(encoding="utf-8")
 
     for scenario_id in list_scenarios():
         assert run_scenario(scenario_id).trace_hash in transcript

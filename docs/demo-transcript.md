@@ -44,8 +44,8 @@ Accepted state:
   evidence_requests: 1
 
 Replay:
-  Replay hash: 99b568ecf9233fa2ed17dbf6e4ed06da234cdc89d0d3d740e097654e2afc2e91
-  decision_hash: b422491a1ca0a7a6f6c93dbc8ec6f8e0875f4d36a4e79c5d7ecef8b4ef2e04e7
+  Replay hash: fb06eee5f96be3ad6e4b0537c904a33281c7239deb949aa7bb8ad7ff40b0dd71
+  decision_hash: a6b73e443694721a578d757f4c47a5be4d7b38e099a1db17e2205475985fbfcb
   interface_authority: absent
   policy_owner: demo_policy_v0
   llm: absent
@@ -77,7 +77,7 @@ Proposed:
    world_delta: draft_notification_created
    Policy downgraded the proposed action.
 
-Replay hash: 626a2f2c442aa67f5c582ad05d8593c116a35c2cb7da1bd20be17610723c7ace
+Replay hash: 807dba449ab808e51877a7aabcca1108f1efc53e11b030c6100b316bc0e7f671
 ```
 
 ## Scenario C: `adversarial_interface`
@@ -107,7 +107,7 @@ Accepted state:
   sent_notifications: 0
   sev_escalations: 0
 
-Replay hash: 59ae6f41dad2c4aa44ded28ae48f0508431fbd68b726c9feddff4d5b125357a6
+Replay hash: e76007002065b5c538b6a296c146054797f17ab1355dea50f8a513c404c30fee
 ```
 
 ## Scenario D: `evidence_arrives_later`
@@ -137,7 +137,7 @@ Accepted state:
   sent_notifications: 1
   sev_escalations: 0
 
-Replay hash: 11f95de0f160c390921fcf26c07bb66e5f5acd55161de50cd9e9fa42f6e29d3f
+Replay hash: 8a9da8712a636a1a44ab6613966419aa0cf8eb9fd7f7e6467312058fc7980553
 ```
 
 ## Reading the transcript
